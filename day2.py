@@ -32,7 +32,7 @@ while True:
             user32.LockWorkStation()
             break
         else:
-            if num > num1 and num <= 90 :
+            if num > num1:
                 print("%s,还有%d次机会"%('猜大了',count))
             else:
                 print("%s,还有%d次机会"%('猜小了',count))
