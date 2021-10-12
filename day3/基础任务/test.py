@@ -22,21 +22,32 @@ import pickle
 # from ctypes import *
 # user32= windll.LoadLibrary("user32.dll")
 
-# 控制锁屏
+# ###########控制锁屏##############
 # from ctypes import *
 # user32 = windll.LoadLibrary('user32.dll')
 # user32.LockWorkStation()
 
-a=int(input("输入高度："))
-b=input("输入符号：")
-c=input("输入填充符：")
-for i in range(1,a+1):
-    b1=[b]*i
-    b2=' '.join(b1)
-    b3=b2.center(9*a,c)
-    print(b3)
-for i in range(1,a+1):
-    b1=[b]*(a+1-i)
-    b2=' '.join(b1)
-    b3=b2.center(9*a,c)
-    print(b3)
+##########图形测试#########
+# a=int(input("输入高度："))
+# b=input("输入符号：")
+# c=input("输入填充符：")
+# for i in range(1,a+1):
+#     b1=[b]*i
+#     b2=' '.join(b1)
+#     b3=b2.center(9*a,c)
+#     print(b3)
+# for i in range(1,a+1):
+#     b1=[b]*(a+1-i)
+#     b2=' '.join(b1)
+#     b3=b2.center(9*a,c)
+#     print(b3)
+
+            # b=input("+++=")
+            # b1 = [b] * 5
+            # b2 = ''.join(b1)
+            # print(b*5)
+            # print(int(b)*5)    #输出字符（无法运算的数据），可以通过*输出多遍
+            # print(b2)
+
+BYTE=1
+print(BYTE)
