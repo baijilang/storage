@@ -49,15 +49,10 @@ def str_look(x,y):
         list.append(n)
     return list
 Ave_salary=number_Ave(names,5)  #平均工资
-print(Ave_salary)
 Ave_age=number_Ave(names,1)
-print(Ave_age)
 Bal_sex1=str_count(names,2,"男")/len(names)
-print(Bal_sex1)
 Bal_sex0=str_count(names,2,"女")/len(names)
-print(Bal_sex0)
 Apa_count60=str_count(names,6,"60")
-print(Apa_count60)
 while True:
     order=input("请输入常用指令：")
     if order=="1":
