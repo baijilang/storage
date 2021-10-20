@@ -14,11 +14,12 @@ info = '''
 *{6}*
 *{7}*
 *{8}*
+*{9}*
 *{0}*
 '''
 print(info.format('*' * 34, '中国农业银行账户管理系统'.center(24, ' '), '选项'.center(32, ' '),
                   '1.开户'.center(32, ' '), '2.存款'.center(32, ' '), '3.取款'.center(32, ' '),
-                  '4.转账'.center(32, ' '), '5.查询'.center(32, ' '), '6.退出'.center(32, ' ')))
+                  '4.转账'.center(32, ' '), '5.查询'.center(32, ' '), '6.退出'.center(32, ' '), '0.后退'.center(32, ' ')))
 bank_Agr = {}     # 定义一个字典存放账户信息
 # 字典内容格式   bank={None: {'类型': None, '状态': 0, '户名': None, '密码': None, '余额': None, '开户行': '中国农业银行',
 #                    '地址': {'国家': None, '省份': None, '街道': None, '门牌号': None}}}
@@ -70,10 +71,12 @@ def add_user():
             password = re.match(p_password, tem_password)
             if password == None:
                 print('请输入6位数字')
-                continue
-            else:
+            elif len(tem_password) == 6:
                 password = password.group()
                 break
+            else:
+                print('请输入6位数字')
+                continue
         country = input('请填写地址\n国籍:')
         if country == '0':
             return 'a1'
