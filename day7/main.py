@@ -1,3 +1,4 @@
+
 all_month_data = {1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None,
                   9: None, 10: None, 11: None, 12: None}
 clothes_data = {'羽绒服': [0, 0, 0]}  # 关键字是种类，值里面：[0]价格  [1]是数量  [2]是总价
@@ -8,7 +9,6 @@ list2 = []
 price_sum = 0
 count_sum = 0
 l_cloth = []
-
 
 # 获取某月的所有数据
 def month_data(month):
@@ -59,10 +59,10 @@ def all_months(l_clo, l_mon):
 
 
 # 某些月份中出现过的衣服列表
-def l_clo(monthlist):
+def l_clo(month_list):
     global l_cloth
     l_cloth = []
-    for i in monthlist:
+    for i in month_list:
         clothes_name(i)
         for j in clothes_name_list:
             if j not in l_cloth:
@@ -70,48 +70,25 @@ def l_clo(monthlist):
     return 1
 
 
-# 全年衣服销售量排名函数
-def rank(way, dic):
-    num = dic[1]['羽绒服'][0]
-    if way == 1:
-        for i in dic.values():
-            for j in i.values():
-                if j[0] > num:
-                    num = j[0]
-        for i in dic.values():
-            for key, value in i.items():
-                if value[0] == num:
-                    print('销售最多衣服是%s' % key)
-    else:
-        for i in dic.values():
-            for j in i.values():
-                if j[0] < num:
-                    num = j[0]
-        for i in dic.values():
-            for key, value in i.items():
-                if value[0] == num:
-                    return [key, value[0]]
-
-
 # 销售总额、销售量合计
-def all_sals(monthlist):
-    annual_sals = 0
+def all_salas(month_list):
+    annual_salas = 0
     annual_count = 0
-    l_clo(monthlist)
+    l_clo(month_list)
     lclo = l_cloth
-    all_months(lclo, monthlist)
+    all_months(lclo, month_list)
     a = list1
     for i in a.values():
-        annual_sals += i[2]
+        annual_salas += i[2]
         annual_count += i[1]
-    return [annual_count, annual_sals]
+    return [annual_count, annual_salas]
 
 
 # 每件衣服年销售占比，销售最多和最低的
-def per_clo(monthlist):
-    all = all_sals(monthlist)
-    l_clo(monthlist)
-    all_months(l_cloth, monthlist)
+def per_clo(month_list):
+    all = all_salas(month_list)
+    l_clo(month_list)
+    all_months(l_cloth, month_list)
     global list2
     list2 = []
     for key, value in list1.items():
@@ -122,16 +99,16 @@ def per_clo(monthlist):
 
 
 # 一、年销售总额
-'''print('年销售总额为：%.2f' % all_sals(range(1,13))[1])'''
+print('年销售总额为：%.2f \n年销售总数为：%.0f' % (all_salas(range(1, 13))[1], all_salas(range(1, 13))[0]))
 
 # 二、年销售占比、畅销衣物
-'''print('年销售占比————————')
+print('年销售占比————————')
 per_clo(range(1, 13))
 l_max = sorted(list2, key=lambda x: x[1], reverse=True)
-print('最畅销的是：', l_max[0][0], '\t\t', '销售最低的是:', l_max[-1][0])'''
+print('最畅销的是：', l_max[0][0], '\t\t', '销售最低的是:', l_max[-1][0])
 
 # 三、季度销售占比、畅销衣物
-'''# s1
+# s1
 print('第一季度销售占比————————')
 per_clo((2,3,4))
 l_max = sorted(list2, key=lambda x: x[1], reverse=True)
@@ -153,4 +130,4 @@ print('最畅销的是：', l_max[0][0], '\t\t', '销售最低的是:', l_max[-1
 print('第四季度销售占比————————')
 per_clo((11,12,1))
 l_max = sorted(list2, key=lambda x: x[1], reverse=True)
-print('最畅销的是：', l_max[0][0], '\t\t', '销售最低的是:', l_max[-1][0])'''
+print('最畅销的是：', l_max[0][0], '\t\t', '销售最低的是:', l_max[-1][0])
