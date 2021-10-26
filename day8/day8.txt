@@ -1,0 +1,76 @@
+-- 1、查询部门编号为30的员工
+SELECT ename
+FROM t_employees
+WHERE deptno='30'
+
+-- 2、查询所有经理的姓名、编号和部门编号
+SELECT ename 姓名,empno 编号,deptno 部门编号
+FROM t_employees
+WHERE job='经理'
+
+-- 3、找出所有奖金高于工资的员工
+SELECT ename 员工
+FROM t_employees
+WHERE sal<comm
+
+-- 4、找出所有奖金高于工资60%的员工
+SELECT ename 员工,sal 工资,comm 奖金
+FROM t_employees
+WHERE comm > sal*0.6
+
+-- 5、找到部门编号为10中的所有经理，和部门编号为20之中的所有分析员的详细资料
+SELECT *
+FROM t_employees 
+WHERE (deptno=10 AND job='经理') OR (deptno='20' AND job='分析员')
+
+-- 6、找出部门编号为10的所有经理，部门编号为20的所有分析员的详细资料，
+-- 还有既不是经理，又不是武装上将但是工资大于等于3000的所有员工资料
+SELECT *
+FROM t_employees
+WHERE (deptno=10 AND job='经理') OR (deptno=20 AND job='分析员') 
+OR ((job NOT IN ('经理','武装上将')) AND sal>=3000)
+
+-- 7、找出无奖金或者奖金低于1000的员工
+SELECT ename 姓名,comm 奖金
+FROM t_employees
+WHERE comm IS NULL OR comm<1000;
+
+-- 8、查询名字由3个字组成的员工
+SELECT ename 姓名
+FROM t_employees
+WHERE LENGTH(ename)=9
+
+-- 9、查询2000年及以后入职的员工
+SELECT ename 员工姓名
+FROM t_employees
+WHERE hiredate REGEXP '^2';
+
+-- 10、查询所有员工详细信息，编号升序排序
+SELECT *
+FROM t_employees
+ORDER BY empno ASC;
+
+-- 11、查询所有员工信息，以薪水降序排序，相同时按照入职日期排序
+SELECT *
+FROM t_employees
+ORDER BY sal DESC ,hiredate ASC;
+
+-- 12、查询每个部门的平均工资
+SELECT t1.dname 部门, AVG(t2.sal) 平均工资
+FROM t_dept t1, t_employees t2
+WHERE t1.`deptno`=t2.`deptno`
+GROUP BY T1.`dname`
+
+-- 13、查询每个部门的雇员数量
+SELECT t1.`dname` 部门名称 ,COUNT(*) 雇员数量
+FROM t_dept t1,t_employees t2
+WHERE t1.`deptno`=t2.`deptno`
+GROUP BY t1.`dname`
+
+-- 14、查询每种工种的最高工资、最低工资、人数
+SELECT job 工种,MAX(sal) 最高工资,MIN(sal) 最低工资
+FROM t_employees
+GROUP BY job
+ORDER BY 最高工资 DESC
+
+
