@@ -7,7 +7,7 @@
 # 如果篮子满了（500个）所有厨师休息3秒 （厨师的每个线程休息）
 # 如果篮子空了，所有顾客休息4秒
 
-# 假设生产4000个蛋糕就停止了，看厨师谁生产的多，顾客谁抢购的多
+# 假设生产3000个蛋糕就停止了，看厨师谁生产的多，顾客谁抢购的多
 """
 
 import time, threading
@@ -31,7 +31,6 @@ class Chef(threading.Thread):
     def run(self):
         global basket, sum, aim
         while True:
-
             if basket < 500 and sum < aim and self.status is True:
                 lock.acquire()
                 basket += 1
@@ -58,7 +57,6 @@ class Chef(threading.Thread):
                 lock.release()
                 break
             else:
-
                 pass
 
     pass
@@ -74,7 +72,6 @@ class Customer(threading.Thread):
     def run(self):
         global basket
         while True:
-
             if self.balance >= 3 and basket > 0 and self.status is True:
                 lock.acquire()
                 basket -= 1
