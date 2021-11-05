@@ -91,7 +91,7 @@ class Customer(threading.Thread):
                 # print('姓名：%s，数量：%s，工资：%s，篮子：%s，总数：%s' % (self.name,self.count,self.balance,basket,sum))
             if Chef.end[0] == 3 and Customer.end[0] == 4 :
                 lock.acquire()
-                print('%s买到了%s个' % (self.name, self.count))
+                print('%s买到了%s个,还剩下%s元' % (self.name, self.count， self.balance))
                 lock.release()
                 break
             else:
@@ -101,7 +101,7 @@ class Customer(threading.Thread):
 
 
 chef1 = Chef()
-chef1.name = '王刚'
+chef1.name = '王师傅'
 chef2 = Chef()
 chef2.name = '赵师傅'
 chef3 = Chef()
