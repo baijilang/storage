@@ -1,4 +1,5 @@
 import selenium
+import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -22,5 +23,5 @@ handles = driver.window_handles
 driver.switch_to.window(handles[2])
 driver.find_element(By.XPATH,'//*[@id="arc_toolbar_report"]/div[1]/span[1]').click()
 
-
-
+time.sleep(10)
+driver.quit()
