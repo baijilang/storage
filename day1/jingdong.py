@@ -22,8 +22,11 @@ try:
     driver.find_element(By.XPATH, '/html/body/div[5]/div[2]/div[2]/div[1]/div/div[2]/ul/li[5]/div/div[1]/a/img').click()
 
     # 将窗口转到某一元素所在的位置 element = driver.find_element(By.XPATH, '/html/body/div[5]/div[2]/div[2]/div[1]/div/div[
-    # 2]/ul/li[5]/div/div[1]/a/img').click() driver.execute_script('arguments[0].scrollIntoView()',
-    # element) 获取所有的窗口的句柄 handles = driver.get_window_rect()  # 窗口的大小，位置
+    # 2]/ul/li[5]/div/div[1]/a/img').click() 
+    # 执行转换的语句
+    # driver.execute_script('arguments[0].scrollIntoView()',element) 
+    # 窗口的大小，位置
+    # site = driver.get_window_rect()  
 
     # 列表当前所有窗口，并转换所在窗口
     handles = driver.window_handles
