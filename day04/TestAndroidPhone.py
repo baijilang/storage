@@ -31,22 +31,22 @@ class TestAndroid(TestCase):
         except Exception:
             print('QUIT')
 
-    @data(success_cases)
+    @data(*success_cases)
     def test_login_success(self, success_data):
-        sina = Android_app()
+        print(success_data)
+        sina = Android_app(self.driver)
         time.sleep(5)
-        # sina.video_page()
         user = success_data['user']
         password = success_data['password']
         expect = success_data['exception']
         result = sina.log_page(user, password)
         self.assertEqual(expect, result)
 
-    @data(defeat_cases)
-    def test_login_default(self, defeat_data):
-        sina = Android_app()
+    @data(*defeat_cases)
+    def test_login_defeat(self, defeat_data):
+        print('running')
+        sina = Android_app(self.driver)
         time.sleep(5)
-        # sina.video_page()
         user = defeat_data['user']
         password = defeat_data['password']
         expect = defeat_data['exception']

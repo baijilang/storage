@@ -1,27 +1,26 @@
 import smtplib
-from unittest import defaultTestLoader
+# from unittest import defaultTestLoader
+import unittest
 from HTMLTestRunner import HTMLTestRunner
 from email.header import Header
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email import encoders
+import os
 
 
-def run(find_path):
-    try:
-        tests = defaultTestLoader.discover(find_path, pattern='Test*.py')
-        runner = HTMLTestRunner.HTMLTestRunner(
-            title='微博测试',
-            description='登录模块测试',
-            verbosity=1,
-            stream=open('weibo_test.html', 'rw+'))
-        runner.run(tests)
-    except Exception as e:
-        print('error1:', e)
-    pass
+def run_case(find_path):
+    test_pack = unittest.defaultTestLoader.discover(find_path, pattern=r'Test*.py')
+    runner = HTMLTestRunner.HTMLTestRunner(
+        title='微博测试',
+        description='登录模块测试',
+        verbosity=1,
+        stream=open('weibo_test.html', mode='w+', encoding='utf-8')
+    )
+    runner.run(test_pack)
 
 
-def send_msg(filename, from_addr, password, smtp_server,  interface,to_addr):
+def send_msg(filename, from_addr, password, smtp_server,  interface, to_addr):
     try:
         # 文件主题对象
         msg = MIMEMultipart()
@@ -51,6 +50,6 @@ def send_msg(filename, from_addr, password, smtp_server,  interface,to_addr):
     pass
 
 
-run(r'C:\Users\xxxxxxxxx\day04')
-send_msg('weibo_test.html', 'xxxxxx@163.com', 'xxxxxxxx', 'smtp.163.com', 25, 'xxxxxxx@qq.com')
+run_case(os.getcwd())
+send_msg('weibo_test.html', 'dl352621346@163.com', 'OEFYFBBGZJBTMSTS', 'smtp.163.com', 25, '1598181578@qq.com')
 print('Finish!')

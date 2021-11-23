@@ -28,6 +28,7 @@ class Android_app:
         try:
             # 进入登录界面
             self.agree()
+            time.sleep(2)
             ele1 = self.driver.find_element_by_accessibility_id("我")
             ele1.click()
             time.sleep(2)
@@ -39,24 +40,35 @@ class Android_app:
             ele2_2 = self.driver.find_element_by_id("com.sina.weibo:id/et_login_view_psw")
             ele2_2.send_keys(password)
             # 协议
-            ele2_3 = self.driver.find_element_by_id("com.sina.weibo:id/et_login_view_protocol")
+            print('准备点击协议')
+            ele2_3 = self.driver.find_element_by_id("com.sina.weibo:id/iv_login_view_protocol")
             ele2_3.click()
             time.sleep(2)
+            print('准备点击登录')
+            ele2_4 = self.driver.find_element_by_id('com.sina.weibo:id/btn_login_view_psw')
+            ele2_4.click()
+            print('登录结束')
             # 获取登录结果信息
+            time.sleep(10)
         except exp.InvalidSwitchToTargetException as e:
-            print('login_page error:', e)
+            print('login_page error line 52:', e)
         except exp.NoSuchElementException as e:
-            print('login_page error:', e)
+            print('login_page error line 54:', e)
         finally:
-            info = ''
+            info = 0
+
             try:
-                info = self.driver.find_element_by_id("com.sina.weibo:id/titleLeft")
-            except exp:
-                print('Login defeated')
-            else:
-                info = self.driver.find_element_by_id("com.sina.weibo:id/tv_login_view_tips")
-            self.close_driver()
-            return info
+                self.driver.find_element_by_xpath('//android.widget.FrameLayout[@content-desc="我"]')
+                time.sleep(3)
+                info = 1
+            except exp.InvalidSwitchToTargetException as e:
+                print('Login defeated line 60:', e)
+            except exp.NoSuchElementException as e:
+                print('login_page error line 62:', e)
+            finally:
+                self.close_driver()
+                print(info)
+                return info
 
     def close_driver(self):
         try:
@@ -77,7 +89,7 @@ class Android_app:
         except exp.InvalidSwitchToTargetException as e:
             print('video_page error:', e)
         except exp.NoSuchElementException as e:
-            print('login_page error:', e)
+            print('video_page error:', e)
         finally:
             self.driver.quit()
 
