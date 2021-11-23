@@ -51,6 +51,6 @@ def send_msg(filename, from_addr, password, smtp_server,  interface,to_addr):
     pass
 
 
-run(r'C:\Users\Administrator\Desktop\demo\HKRtask\自动化\day04')
+run(r'C:\Users\xxxxxxxxx\day04')
 send_msg('weibo_test.html', 'xxxxxx@163.com', 'xxxxxxxx', 'smtp.163.com', 25, 'xxxxxxx@qq.com')
 print('Finish!')
