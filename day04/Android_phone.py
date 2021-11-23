@@ -6,40 +6,63 @@ from selenium.common import exceptions as exp
 
 
 class Android_app:
-    def __init__(self):
-        # 运行器在测试类中已连接
-        url = '127.0.0.1:4723/wd/hub'
-        param = {
-            'deviceName': '127.0.0.1:62001',
-            'platformName': 'Android',
-            'platformVersion': '5.1.1',
-            'appPackage': 'com.sina.weibo',
-            'appActivity': 'com.sina.weibo.SplashActivity'}
-        self.driver = webdriver.Remote(url, param)
+
+    def __init__(self, driver=webdriver.Remote):
+        if not isinstance(driver, webdriver.Remote):
+            # 运行器在测试类中已连接
+            url = '127.0.0.1:4723/wd/hub'
+            param = {
+                'deviceName': '127.0.0.1:62001',
+                'platformName': 'Android',
+                'platformVersion': '5.1.1',
+                'appPackage': 'com.sina.weibo',
+                'appActivity': 'com.sina.weibo.SplashActivity'}
+            self.driver = webdriver.Remote(url, param)
+        else:
+            self.driver = driver
 
     def agree(self):
-        TouchAction(self.driver).tap(x=468,y=798).perform()
+        TouchAction(self.driver).tap(x=468, y=798).perform()
 
-    def log_page(self, phone_number):
+    def log_page(self, account, password):
         try:
             # 进入登录界面
             self.agree()
             ele1 = self.driver.find_element_by_accessibility_id("我")
             ele1.click()
             time.sleep(2)
-            # 手机号和密码
-            ele2 = self.driver.find_element()
-            ele2.send_keys(phone_number)
+            # 切换到账号密码登录模式
+            self.driver.find_element_by_id("com.sina.weibo:id/iv_psw").click()
+            # 账号和密码
+            ele2_1 = self.driver.find_element_by_id('com.sina.weibo:id/et_login_view_uname')
+            ele2_1.send_keys(account)
+            ele2_2 = self.driver.find_element_by_id("com.sina.weibo:id/et_login_view_psw")
+            ele2_2.send_keys(password)
+            # 协议
+            ele2_3 = self.driver.find_element_by_id("com.sina.weibo:id/et_login_view_protocol")
+            ele2_3.click()
             time.sleep(2)
-            # 退出登录界面
-            ele3 = self.driver.find_element(By.ID, "com.sina.weibo:id/iv_title_back")
-            ele3.click()
+            # 获取登录结果信息
         except exp.InvalidSwitchToTargetException as e:
-            print('video_page error:', e)
+            print('login_page error:', e)
         except exp.NoSuchElementException as e:
             print('login_page error:', e)
         finally:
+            info = ''
+            try:
+                info = self.driver.find_element_by_id("com.sina.weibo:id/titleLeft")
+            except exp:
+                print('Login defeated')
+            else:
+                info = self.driver.find_element_by_id("com.sina.weibo:id/tv_login_view_tips")
+            self.close_driver()
+            return info
+
+    def close_driver(self):
+        try:
             self.driver.quit()
+        except exp:
+            print(' Quit')
 
     def video_page(self):
         try:
